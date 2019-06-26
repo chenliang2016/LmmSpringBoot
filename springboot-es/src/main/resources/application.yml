@@ -1,0 +1,10 @@
+spring:
+  data:
+    elasticsearch:
+      host: 127.0.0.1
+      port: 9200
+      cluster:
+        name: elastic
+        password: changme
+      repositories:
+        enabled: true
