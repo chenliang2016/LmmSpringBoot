@@ -34,7 +34,7 @@ public class ESDemoApplication implements ApplicationRunner {
 		System.out.print("#################在kibana使用 GET /testorder/_doc/_search 命令进行查询 ###############\n");
 
 
-		System.out.print("#################查询 start ###############\n");
+		System.out.print("#################直接查询查询 start  ###############\n");
 		ESReturnObj esReturnObj =  eSebService.queryOrderList(1,10);
 
 		System.out.print("#################查询结果###############\n");
@@ -48,6 +48,13 @@ public class ESDemoApplication implements ApplicationRunner {
 		System.out.print("#################统计结果###############\n");
 
 		System.out.print(map);
+
+		System.out.print("#################分组统计 类似sql group start ###############\n");
+		Map map2 =  eSebService.countGroup();
+
+		System.out.print("#################统计结果###############\n");
+
+		System.out.print(map2);
 
 	}
 }

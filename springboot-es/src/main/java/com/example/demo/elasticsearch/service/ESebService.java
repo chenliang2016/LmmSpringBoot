@@ -49,7 +49,8 @@ public class ESebService extends IESBaseService<ESOrder>{
         return responseEntity;
     }
 
-    public Map count() {
+    // 分组查询
+    public Map countGroup() {
 
         ESQueryBuilder esQueryBuilder = new ESQueryBuilder();
 
@@ -59,6 +60,36 @@ public class ESebService extends IESBaseService<ESOrder>{
         Aggs aggs = new Aggs.Builder()
                 .setAggsKey("group_by_device")
                 .addGroupField("customer_full_name.keyword")
+                .addAggs("taxful_total_priceSum","taxful_total_price", Aggs.Builder.SUM)
+                .build();
+
+        esQueryBuilder.addAggs(aggs);
+
+        String queryString = esQueryBuilder.build();
+
+        ESReturnObj returnObj = null;
+
+        try{
+            returnObj =  query(queryString);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Map returnAggs = returnObj.getAggregations();
+
+        return returnAggs;
+    }
+
+    // 直接查询
+    public Map count() {
+
+        ESQueryBuilder esQueryBuilder = new ESQueryBuilder();
+
+        esQueryBuilder
+                .setSize(0);
+
+        Aggs aggs = new Aggs.Builder()
+                .setType(Aggs.Builder.DIRECT)
                 .addAggs("taxful_total_priceSum","taxful_total_price", Aggs.Builder.SUM)
                 .build();
 
