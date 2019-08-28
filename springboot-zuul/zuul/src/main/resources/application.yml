@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+app:
+  secret: abc123456789
+  sign-skip: true
+
 zuul:
   routes:
     v1:
