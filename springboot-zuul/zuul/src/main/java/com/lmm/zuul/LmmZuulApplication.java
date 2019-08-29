@@ -2,7 +2,7 @@ package com.lmm.zuul;
 
 import com.lmm.zuul.filters.ErrorFilter;
 import com.lmm.zuul.filters.PostFilter;
-import com.lmm.zuul.filters.PreFilter;
+import com.lmm.zuul.filters.SignFilter;
 import com.lmm.zuul.filters.RouteFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +18,8 @@ public class LmmZuulApplication {
     }
 
     @Bean
-    public PreFilter preFilter() {
-        return new PreFilter();
+    public SignFilter preFilter() {
+        return new SignFilter();
     }
     @Bean
     public PostFilter postFilter() {

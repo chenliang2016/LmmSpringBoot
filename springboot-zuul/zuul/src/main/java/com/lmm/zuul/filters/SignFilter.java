@@ -1,5 +1,6 @@
 package com.lmm.zuul.filters;
 
+import com.lmm.zuul.api.ResultCode;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,7 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PreFilter extends ZuulFilter {
+public class SignFilter extends BaseFilter {
 
 
   @Value("${app.secret}")
@@ -61,7 +62,7 @@ public class PreFilter extends ZuulFilter {
 
     String[] signs = params.get("sign");
     if (ArrayUtils.isEmpty(signs)) {
-//      throw new SignException("miss sign [" + request.getRequestURI() + "]");
+      setFailedRequest("签名错误", ResultCode.SIGN_ERROR);
     }
     String sign = signs[0];
 
@@ -77,12 +78,12 @@ public class PreFilter extends ZuulFilter {
     }).filter(Objects::nonNull).collect(Collectors.toList()).toArray(new String[]{});
 
     String signString = String.join("&", values) + appSecret;
-    String sign2 = DigestUtils.md5Hex(signString);
+    String sign2 = DigestUtils.md5Hex(signString).toUpperCase();
 
     if (Objects.equals(sign, sign2)) {
       return true;
     } else {
-//      throw new SignException("error sign [" + request.getRequestURI() + "]");
+      setFailedRequest("签名错误", ResultCode.SIGN_ERROR);
     }
  
     System.out.println("Request Method : " + request.getMethod() + " Request URL : " + request.getRequestURL().toString());

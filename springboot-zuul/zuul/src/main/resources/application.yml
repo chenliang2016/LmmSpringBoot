@@ -2,7 +2,7 @@ server:
   port: 8080
 
 app:
-  secret: abc123456789
+  secret: P0xwRZP859e20e0P
   sign-skip: true
 
 zuul:
