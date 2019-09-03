@@ -1,13 +1,12 @@
 package com.lmm.zuul.filters;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lmm.zuul.api.BaseResponse;
 import com.lmm.zuul.api.ResultCode;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.cloud.netflix.zuul.filters.Route;
+import org.springframework.http.MediaType;
 import org.springframework.web.util.UrlPathHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +20,23 @@ public abstract class BaseFilter extends ZuulFilter {
             token = request.getParameter(headerName);
         }
         return token;
+    }
+
+
+
+    /**
+     * 判断本次请求的数据类型是否为json
+     *
+     * @param request request
+     * @return true: 是 JSON 数据; false: 非 json 数据
+     */
+    private boolean isJson(HttpServletRequest request) {
+        if (request.getContentType() != null) {
+            return request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE) ||
+                    request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        }
+
+        return false;
     }
 
 

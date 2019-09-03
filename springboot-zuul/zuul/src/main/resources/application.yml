@@ -1,3 +1,7 @@
+spring:
+  profiles:
+    active: dev
+
 server:
   port: 8080
 
@@ -5,11 +9,6 @@ app:
   secret: P0xwRZP859e20e0P
   sign-skip: true
 
-zuul:
-  routes:
-    v1:
-      path: /v1/**
-      url: http://localhost:8082/v1/
 
 ribbon:
   eureka:

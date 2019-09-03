@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    v1:
+      path: /v1/**
+      url: http://127.0.0.1:7020/v1/
