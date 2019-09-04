@@ -17,6 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+        <sentinel.version>1.6.3</sentinel.version>
     </properties>
 
     <dependencies>
@@ -47,17 +48,17 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-core</artifactId>
-            <version>1.6.3</version>
+            <version>${sentinel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-zuul-adapter</artifactId>
-            <version>1.6.3</version>
+            <version>${sentinel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-redis</artifactId>
-            <version>1.6.3</version>
+            <version>${sentinel.version}</version>
         </dependency>
         <!-- 熔断降级 end-->
 
